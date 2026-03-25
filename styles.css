@@ -715,12 +715,51 @@ body {
     border: 1px solid var(--border-color);
     background-color: #fff;
     object-fit: cover;
+    cursor: zoom-in;
 }
 
 @media (max-width: 768px) {
     .research-blog-image-row {
         grid-template-columns: 1fr;
     }
+}
+
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    padding: 2rem;
+}
+
+.image-lightbox.active {
+    display: flex;
+}
+
+.image-lightbox img {
+    max-width: 95vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    border: 2px solid #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.image-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
 }
 
 .contact {

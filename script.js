@@ -131,3 +131,47 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Click-to-zoom for blog images
+document.addEventListener('DOMContentLoaded', () => {
+    const blogImages = document.querySelectorAll('.research-blog-image');
+    if (!blogImages.length) return;
+
+    const lightbox = document.createElement('div');
+    lightbox.className = 'image-lightbox';
+    lightbox.innerHTML = `
+        <button class="image-lightbox-close" aria-label="Close image preview">&times;</button>
+        <img src="" alt="Expanded blog visual">
+    `;
+    document.body.appendChild(lightbox);
+
+    const lightboxImg = lightbox.querySelector('img');
+    const closeBtn = lightbox.querySelector('.image-lightbox-close');
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        lightboxImg.src = '';
+        document.body.style.overflow = '';
+    };
+
+    blogImages.forEach((img) => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+});
+
