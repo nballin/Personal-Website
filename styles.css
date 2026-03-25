@@ -703,6 +703,26 @@ body {
     object-fit: contain;
 }
 
+.research-blog-image-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.research-blog-image {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .research-blog-image-row {
+        grid-template-columns: 1fr;
+    }
+}
+
 .contact {
     padding: 100px 0;
     background-color: var(--bg-grey);
