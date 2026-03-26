@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Research Blog - Nithin Balamurugan">
+    <title>Research Blog - Nithin Balamurugan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">Nithin Balamurugan</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="research-blog.html" class="nav-link">Research Blog</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="research-blog" class="research-blog">
+        <div class="container">
+            <h2 class="section-title">Research Blog</h2>
+            <div class="research-blog-layout">
+                <aside class="research-blog-sidebar">
+                    <h3>Posts</h3>
+                    <nav class="research-blog-sidebar-links">
+                        <a href="#blog1-title" class="research-blog-sidebar-link">BLOG 1</a>
+                        <a href="#blog2-title" class="research-blog-sidebar-link">BLOG 2</a>
+                        <a href="#blog3-title" class="research-blog-sidebar-link">BLOG 3 (Latest)</a>
+                    </nav>
+                </aside>
+
+                <div class="research-blog-content">
+                    <div id="blog-1" class="research-blog-post">
+                        <h3 id="blog1-title">BLOG 1</h3>
+                        <p class="research-blog-date">MARCH 24, 2026</p>
+                        <h4>Why do you care about TRMs?</h4>
+                        <video class="research-blog-video" loop muted playsinline controls preload="metadata" poster="Blog%20visuals/Blog1-poster.jpg">
+                            <source src="Blog%20visuals/Blog1.mp4?v=20260325" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p>
+                            Cheaper, faster, and more accurate. Got your attention?
+                        </p>
+                        <p>
+                            Here&apos;s the research paper link:
+                            <a href="https://arxiv.org/abs/2512.11847v1" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2512.11847v1</a>
+                        </p>
+                        <p>
+                            Tiny recursive models are a small model (so millions not billions parameters), that refines its internal state (recursive) instead of token-by-token like LLMs.
+                        </p>
+                        <p>
+                            Why should it matter to you? I see a plethora of possibilities and potential that this model and concept can bring to both your projects and even corporate workflow for my fellow recruiters (I hope you&apos;ve made it this far).
+                        </p>
+                        <p>
+                            But before we get into that, I do want to walk through the research, so I highly recommend you read just the abstract of the paper (first paragraph) and get a little more familiar with it to follow along with the next video.
+                        </p>
+                        <p>
+                            Page 12 has the open sourced GitHub repository if you&apos;re impatient and want to see the code and tests for yourself.
+                        </p>
+                    </div>
+
+                    <div id="blog-2" class="research-blog-post">
+                        <h3 id="blog2-title">BLOG 2</h3>
+                        <p class="research-blog-date">MARCH 25, 2026</p>
+                        <h4>What and why the research? + Abstract</h4>
+                        <video class="research-blog-video" loop muted playsinline controls preload="metadata" poster="Blog%20visuals/Blog2-poster.jpg">
+                            <source src="Blog%20visuals/Blog2.mp4?v=20260325" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p>
+                            We know what it does, we don&apos;t know how.
+                        </p>
+                        <p>
+                            The model outputting an amazing Pass@1 (meaning the best one) result is enough to prove the potential exists and the dreams can live.
+                        </p>
+                        <p>
+                            How was it tested? In a nutshell, we eliminated certain aspects of the puzzle (puzzle ID) and saw how the algorithm behaved.
+                        </p>
+                        <p>
+                            Failed: the puzzle ID mattered, therefore important.
+                        </p>
+                        <p>
+                            Succeeded: worked without puzzle ID, therefore doesn&apos;t matter. Test beyond: how much more did it struggle to succeed.
+                        </p>
+                        <p>
+                            As we narrow down what matters to it, we narrow down to understanding the behavior of the algorithm.
+                        </p>
+                        <p>
+                            Paper link:
+                            <a href="https://arxiv.org/abs/2512.11847v1" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2512.11847v1</a>
+                        </p>
+                    </div>
+
+                    <div id="blog-3" class="research-blog-post">
+                        <h3 id="blog3-title">BLOG 3</h3>
+                        <p class="research-blog-date">MARCH 26, 2026</p>
+                        <h4>Model Walkthrough: Base vs Annotated</h4>
+                        <video class="research-blog-video" loop muted playsinline controls preload="metadata" poster="Blog%20visuals/Blog3-poster.jpg">
+                            <source src="Blog%20visuals/Blog3.mp4?v=20260325" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="research-blog-image-row">
+                            <img src="Blog%20visuals/EmptyModel.jpg" alt="Base model diagram" class="research-blog-image">
+                            <img src="Blog%20visuals/AnnotatedModel.jpg" alt="Annotated model diagram" class="research-blog-image">
+                        </div>
+                        <p>
+                            1. x (question) enters the model, y (answer) and z (reasoning) are output from the recursion.
+                        </p>
+                        <p>
+                            2. The near copleted asnwer is obtained after the first recursion (look at visual below)
+                        </p>
+                        <p>
+                            -> in recursion, context and infro building solved: outputs y and z
+                        </p>
+                        <p>
+                            -> y and z ferment in the block and the final output it released
+                        </p>
+                        <p>
+                            -> converted from vector to wording
+                        </p>
+                        <img src="Blog%20visuals/Blog3test.png" alt="Blog 3 test walkthrough table" class="research-blog-image research-blog-image-single">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Nithin Balamurugan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

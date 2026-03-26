@@ -19,12 +19,16 @@ navLinks.forEach(link => {
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
         if (target) {
-            const offsetTop = target.offsetTop - 70; // Account for fixed navbar
+            e.preventDefault();
+            const navbarHeight = navbar ? navbar.offsetHeight : 70;
+            const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 12;
             window.scrollTo({
-                top: offsetTop,
+                top: Math.max(0, offsetTop),
                 behavior: 'smooth'
             });
         }
@@ -173,5 +177,66 @@ document.addEventListener('DOMContentLoaded', () => {
             closeLightbox();
         }
     });
+});
+
+// Pause and mute videos once they are mostly out of view.
+document.addEventListener('DOMContentLoaded', () => {
+    const videos = Array.from(document.querySelectorAll('video'));
+    if (!videos.length) return;
+
+    const minVisibleRatio = 0.35;
+
+    const pauseAndMuteIfOutOfView = (video) => {
+        const rect = video.getBoundingClientRect();
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const visibleTop = Math.max(rect.top, 0);
+        const visibleBottom = Math.min(rect.bottom, viewportHeight);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        const ratio = rect.height > 0 ? visibleHeight / rect.height : 0;
+
+        if (ratio < minVisibleRatio) {
+            video.muted = true;
+            if (!video.paused) video.pause();
+        }
+    };
+
+    const checkAllVideos = () => {
+        videos.forEach(pauseAndMuteIfOutOfView);
+    };
+
+    let ticking = false;
+    const scheduleCheck = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            checkAllVideos();
+            ticking = false;
+        });
+    };
+
+    // IntersectionObserver helps catch initial transitions quickly.
+    const videoObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => pauseAndMuteIfOutOfView(entry.target));
+        },
+        { threshold: [0, 0.2, 0.35, 0.6, 1] }
+    );
+
+    videos.forEach((video) => videoObserver.observe(video));
+    window.addEventListener('scroll', scheduleCheck, { passive: true });
+    window.addEventListener('resize', scheduleCheck);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            videos.forEach((video) => {
+                video.muted = true;
+                if (!video.paused) video.pause();
+            });
+        } else {
+            scheduleCheck();
+        }
+    });
+
+    // Initial pass.
+    checkAllVideos();
 });
 
