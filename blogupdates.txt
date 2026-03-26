@@ -1,0 +1,65 @@
+---------------------------------
+BLOG1 | March 24th 2026
+Title: Why do you care about TRMs?
+- Cheaper, faster, and more accurate. Got your attetion?
+
+Here's the research paper link: https://arxiv.org/abs/2512.11847v1
+
+Tiny recursive models are a small model (so millions not billions parameters), that refines it's internal state (recursive) instead of token-by-token like LLMs.
+Why should it matter to you? I see a plethora of possibilites and potential that this model and concept can can bring to both your projects and even corporate workflow for my fellow recruiters (I hope you've made it this far). 
+
+
+But before we get into that, I do want to walk threough the research, so I highly reccomend you read just the abstrat of the paper (FIRST PARAGRAH) and get a little more familiar with it to follow along with the next video. 
+
+Page 12 has the open sourced Github repository if you're impatient and want to see the code and tests for yourself. 
+
+---------------------------------
+
+
+---------------------------------
+BLOG2 | March 25th 2026
+
+Title: What and why the research? + Abstract
+- We know what it does, we don't know how. 
+
+- The model outputing an amazing Pass@1(meaning the best one) result is enough to prove the potential exists and the dreams can live. 
+How was it tested? 
+In a nutshell we eliminated certain aspects of the puzzle (puzzle ID) and seen how the algorithm behaved.
+Failed: the puzzle ID mattered... therefore important
+Succeded: worked without puzzle ID... therefore doesn't matter -> test beyond: how much more did it struggle to succeed. 
+
+- As we narrow down what matters to it, we narrow down to understanding the behaviour of the algorithm. 
+
+Paper link: https://arxiv.org/abs/2512.11847v1
+---------------------------------
+
+---------------------------------
+BLOG3 | March 26th 2026
+
+Title: How the model works
+
+Here is are viuals of the diagram, and my annotated diagram. 
+**insert empty and full diagram**
+
+It is textbook recursion, and that's why it amazes me that it isn't talked about as much. 
+
+Overview:
+1. x(question) enters the model, y(answer) and z(reasoning) are output from the recursion. 
+2. The near copleted asnwer is obtained after the first recursion (look at visual below)
+-> in recursion, context and infro building solved: outputs y and z 
+-> y and z ferment in the block and the final output it released
+-> converted from vector to wording
+***insert Blog3test***
+---------------------------------
+
+BLOG4 | March 28th 2026
+Title: TRM implementation scenerio
+
+Key term: Tokenization
+-> LLM tokenization is the process of breaking text into smaller units called tokens, such as words, subwords, or characters, so a language model can convert them into numbers and process them.
+
+THIS is what makes LLMs expensive. THIS is the issue I want to tackle. 
+The average engineer will use about $250k worth of tokens in a year, so let's go over a scenerio of a QA system, and how we can visually picture this model being used to reduce tokenization.
+
+All in all: TRM eliminated irrelevent garbage -> reduces unnecessary tokenization -> corporate save money -> everyone happy
+
