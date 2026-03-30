@@ -19,12 +19,14 @@ navLinks.forEach(link => {
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        // Read the target id from the clicked link.
         const href = this.getAttribute('href');
         if (!href || href === '#') return;
 
         const target = document.querySelector(href);
         if (target) {
             e.preventDefault();
+            // Keep target clear of the fixed top navbar.
             const navbarHeight = navbar ? navbar.offsetHeight : 70;
             const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 12;
             window.scrollTo({
@@ -51,6 +53,7 @@ window.addEventListener('scroll', () => {
         navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     }
     
+    // Save current scroll value for future scroll-based features.
     lastScroll = currentScroll;
 });
 
@@ -75,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
     
     projectCards.forEach(card => {
+        // Start hidden so cards can animate in when they enter view.
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -82,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     sections.forEach(section => {
+        // Apply the same soft fade-up to sections.
         section.style.opacity = '0';
         section.style.transform = 'translateY(30px)';
         section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
@@ -112,6 +117,7 @@ function highlightActiveSection() {
         if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
             navLinks.forEach(link => {
                 link.classList.remove('active');
+                // Match nav link href (ex: #projects) with current section id.
                 if (link.getAttribute('href') === `#${sectionId}`) {
                     link.classList.add('active');
                 }
@@ -152,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = lightbox.querySelector('.image-lightbox-close');
 
     const closeLightbox = () => {
+        // Reset image and unlock page scrolling.
         lightbox.classList.remove('active');
         lightboxImg.src = '';
         document.body.style.overflow = '';
@@ -159,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     blogImages.forEach((img) => {
         img.addEventListener('click', () => {
+            // Open clicked image in a larger preview.
             lightboxImg.src = img.src;
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -187,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const minVisibleRatio = 0.35;
 
     const pauseAndMuteIfOutOfView = (video) => {
+        // Measure how much of the video is currently visible.
         const rect = video.getBoundingClientRect();
         const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
         const visibleTop = Math.max(rect.top, 0);
@@ -194,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const visibleHeight = Math.max(0, visibleBottom - visibleTop);
         const ratio = rect.height > 0 ? visibleHeight / rect.height : 0;
 
+        // If mostly out of view, pause and mute to reduce noise/distraction.
         if (ratio < minVisibleRatio) {
             video.muted = true;
             if (!video.paused) video.pause();
@@ -209,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(() => {
+            // Run once per frame while scrolling/resizing.
             checkAllVideos();
             ticking = false;
         });
