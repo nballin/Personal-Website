@@ -62,4 +62,4 @@ THIS is what makes LLMs expensive. THIS is the issue I want to tackle.
 The average engineer will use about $250k worth of tokens in a year, so let's go over a scenerio of a QA system, and how we can visually picture this model being used to reduce tokenization.
 
 All in all: TRM eliminated irrelevent garbage -> reduces unnecessary tokenization -> corporate save money -> everyone happy
-
+---------------------------------
