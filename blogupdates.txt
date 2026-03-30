@@ -63,3 +63,28 @@ The average engineer will use about $250k worth of tokens in a year, so let's go
 
 All in all: TRM eliminated irrelevent garbage -> reduces unnecessary tokenization -> corporate save money -> everyone happy
 ---------------------------------
+
+BLOG5 | March 29th 2026
+Title: Our 4 Big Why's (Introduction) (1)
+
+Here are the 4 key factors we researched. 
+1. Role of test-time compute 
+2. Dependence on puzzle ID
+3. Effictive depth of recursion 
+4. Impact of augmentation on the solution distrobution 
+**IntroNotes.jpg here**
+
+We go over the questions raised from each of these factors acklowedging what we need to eventually know to understand the nehaviour of the model down to the pin. 
+---------------------------------
+
+BLOG6 | March 30th 2026
+Title: What did we do? (Contributions)  (1.1)
+
+Following the 4 factors we needed to understand, here are the points we tackled:
+1. Ensemble contribution
+2. Puddle-ID Dependence
+3. Recursion trajectory analysis
+4. Training dynamics under augmentation
+**ContributionNotes.jpg here**
+
+Using a "did - found -  conclusion" model, I go over how we appraoched each why to find it's how and what. 

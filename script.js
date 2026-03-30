@@ -86,7 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     sections.forEach(section => {
-        // Apply the same soft fade-up to sections.
+        // The research blog is one very tall section: visible height / section height can stay
+        // below the observer threshold, so it would never fade in. Leave it fully visible.
+        if (section.classList.contains('research-blog')) {
+            return;
+        }
         section.style.opacity = '0';
         section.style.transform = 'translateY(30px)';
         section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
