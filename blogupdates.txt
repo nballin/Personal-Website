@@ -88,3 +88,29 @@ Following the 4 factors we needed to understand, here are the points we tackled:
 **ContributionNotes.jpg here**
 
 Using a "did - found -  conclusion" model, I go over how we appraoched each why to find it's how and what. 
+
+---------------------------------
+BLOG7 | April 2nd 2026
+
+Title: Related papers (step into the past) (2 - 2.3)
+
+The TRM was an  "update" from the HRM (hierarchical recursive model) which was a model with smaller models and more parameters within.
+We go over:
+1. Why the HRM wasn't the method
+2. what the TRM fixes + why it's better
+3. The difference in both thought-chains 
+
+**(2)AND(2.1:2.2).jpg here** and beside **Blog7Annotated.jpg**
+---------------------------------
+
+BLOG8 | April 5th 2026
+
+Title: Updated TRM implementation + first problem
+
+Long story short: TRM does NOT take raw text as input.
+
+After going through a better detailed implementation flowchart, we see where the TRM is used and dig into out new roadblock. 
+
+Question: How can we updated the TRM to comprehend text input and not just pixel to pixel play. 
+
+**Blog8Flowchart.jpg here***
