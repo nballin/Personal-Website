@@ -114,3 +114,4 @@ After going through a better detailed implementation flowchart, we see where the
 Question: How can we updated the TRM to comprehend text input and not just pixel to pixel play. 
 
 **Blog8Flowchart.jpg here***
+---------------------------------
