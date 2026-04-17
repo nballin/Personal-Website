@@ -76,8 +76,16 @@ const observer = new IntersectionObserver((entries) => {
 document.addEventListener('DOMContentLoaded', () => {
     const projectCards = document.querySelectorAll('.project-card');
     const sections = document.querySelectorAll('section');
+    const isNarrowViewport = window.matchMedia('(max-width: 1024px)').matches;
     
     projectCards.forEach(card => {
+        if (isNarrowViewport) {
+            // Mobile fallback: keep cards visible even if observer timing is inconsistent.
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+            card.style.transition = 'none';
+            return;
+        }
         // Start hidden so cards can animate in when they enter view.
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
@@ -89,6 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // The research blog is one very tall section: visible height / section height can stay
         // below the observer threshold, so it would never fade in. Leave it fully visible.
         if (section.classList.contains('research-blog')) {
+            return;
+        }
+        if (isNarrowViewport) {
+            // Mobile fallback: keep full sections visible and avoid missed observer triggers.
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+            section.style.transition = 'none';
             return;
         }
         section.style.opacity = '0';
