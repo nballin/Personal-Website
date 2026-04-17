@@ -3,6 +3,7 @@
 
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const isTouch  = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const isNarrowViewport = () => window.matchMedia('(max-width: 1024px)').matches;
 
   // ─── 1. HERO CANVAS — 3-D PARTICLE CONSTELLATION ──────────────────────────
   const heroEl = document.querySelector('.hero');
@@ -257,7 +258,7 @@
       const ease = 1 - (1 - p) * (1 - p);
 
       if (aboutContEl) {
-        if (isMobile) aboutContEl.style.transform = '';
+        if (isNarrowViewport()) aboutContEl.style.transform = 'translateX(0)';
         else aboutContEl.style.transform = `translateX(${ease * -20}vw)`;
       }
 
@@ -274,6 +275,20 @@
     };
     window.addEventListener('scroll', onAboutFrame, { passive: true });
     onAboutFrame();
+  }
+
+  // ─── 10. ABOUT MOBILE PHOTO CARDS — FADE IN ON SCROLL ─────────────────────
+  const aboutPhotoCards = document.querySelectorAll('.about-photo-card');
+  if (aboutPhotoCards.length) {
+    const cardObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+
+    aboutPhotoCards.forEach(card => cardObserver.observe(card));
   }
 
 })();
