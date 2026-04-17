@@ -256,7 +256,10 @@
       const p    = Math.max(0, Math.min(1, raw));
       const ease = 1 - (1 - p) * (1 - p);
 
-      if (aboutContEl) aboutContEl.style.transform = `translateX(${ease * -20}vw)`;
+      if (aboutContEl) {
+        if (isMobile) aboutContEl.style.transform = '';
+        else aboutContEl.style.transform = `translateX(${ease * -20}vw)`;
+      }
 
       // Toggle string+photo drop with hysteresis to avoid flicker.
       if (stringGallery) {

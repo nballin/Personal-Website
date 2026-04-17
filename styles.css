@@ -372,7 +372,35 @@ body {
 }
 
 @media (max-width: 1024px) {
-    .string-gallery { display: none; }
+    .string-gallery {
+        position: static;
+        left: auto;
+        right: auto;
+        top: auto;
+        width: 100%;
+        height: auto;
+        margin-top: 2rem;
+        padding: 0 20px;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .string-item {
+        width: min(100%, 420px);
+        transform: translateY(24px);
+    }
+
+    .string-item .string-line {
+        display: none;
+    }
+
+    .string-gallery.active .string-item[data-si="0"],
+    .string-gallery.active .string-item[data-si="1"],
+    .string-gallery.active .string-item[data-si="2"] {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.45s ease, transform 0.45s ease;
+    }
 }
 
 .about .section-title {
