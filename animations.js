@@ -5,23 +5,33 @@
   const isTouch  = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const isNarrowViewport = () => window.matchMedia('(max-width: 1024px)').matches;
 
-  // ─── 1. HERO CANVAS — 3-D PARTICLE CONSTELLATION ──────────────────────────
-  const heroEl = document.querySelector('.hero');
-  if (heroEl) {
-    if (getComputedStyle(heroEl).position === 'static') heroEl.style.position = 'relative';
-    const heroContent = heroEl.querySelector('.hero-content');
-    if (heroContent) { heroContent.style.position = 'relative'; heroContent.style.zIndex = '1'; }
+  // ─── 1. BACKGROUND CANVAS — 3-D PARTICLE CONSTELLATION ────────────────────
+  const setupConstellationCanvas = (sectionEl, canvasId, countDesktop) => {
+    if (!sectionEl) return;
+    if (getComputedStyle(sectionEl).position === 'static') sectionEl.style.position = 'relative';
+
+    const contentEl = sectionEl.querySelector('.hero-content, .project-detail-container, .container');
+    if (contentEl) {
+      contentEl.style.position = 'relative';
+      contentEl.style.zIndex = '1';
+    }
 
     const canvas = document.createElement('canvas');
-    canvas.id = 'hero-canvas';
-    heroEl.insertBefore(canvas, heroEl.firstChild);
+    canvas.id = canvasId;
+    canvas.className = 'bg-fx-canvas';
+    sectionEl.insertBefore(canvas, sectionEl.firstChild);
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    const N = isMobile ? 35 : 85;
-    let W = 0, H = 0;
-    const resize = () => { W = canvas.width = heroEl.offsetWidth; H = canvas.height = heroEl.offsetHeight; };
+    const N = isMobile ? Math.max(20, Math.floor(countDesktop * 0.45)) : countDesktop;
+    let W = 0;
+    let H = 0;
+    const resize = () => {
+      W = canvas.width = sectionEl.offsetWidth;
+      H = canvas.height = sectionEl.offsetHeight;
+    };
     resize();
-    new ResizeObserver(resize).observe(heroEl);
+    new ResizeObserver(resize).observe(sectionEl);
 
     const pts = Array.from({ length: N }, () => ({
       x: (Math.random() - 0.5) * 2,
@@ -32,7 +42,10 @@
       vz: (Math.random() - 0.5) * 3.5e-4,
     }));
 
-    let tmx = 0, tmy = 0, cmx = 0, cmy = 0;
+    let tmx = 0;
+    let tmy = 0;
+    let cmx = 0;
+    let cmy = 0;
     if (!isTouch) {
       document.addEventListener('mousemove', e => {
         tmx = (e.clientX / window.innerWidth  - 0.5) * 0.55;
@@ -40,22 +53,29 @@
       });
     }
 
-    const rotY = (x, y, z, a) => [ x*Math.cos(a)+z*Math.sin(a), y, -x*Math.sin(a)+z*Math.cos(a) ];
-    const rotX = (x, y, z, a) => [ x, y*Math.cos(a)-z*Math.sin(a), y*Math.sin(a)+z*Math.cos(a) ];
+    const rotY = (x, y, z, a) => [x * Math.cos(a) + z * Math.sin(a), y, -x * Math.sin(a) + z * Math.cos(a)];
+    const rotX = (x, y, z, a) => [x, y * Math.cos(a) - z * Math.sin(a), y * Math.sin(a) + z * Math.cos(a)];
 
     const project = (x, y, z) => {
       let [px, py, pz] = rotY(x, y, z, cmx);
       [px, py, pz] = rotX(px, py, pz, -cmy);
       const fov = 2.6;
       const d = fov / (fov + pz + 1.2);
-      return { sx: W/2 + px*d*W*0.44, sy: H/2 + py*d*H*0.44, r: Math.max(0.5, d*2.8), a: Math.min(0.85, d*0.65) };
+      return {
+        sx: W / 2 + px * d * W * 0.44,
+        sy: H / 2 + py * d * H * 0.44,
+        r: Math.max(0.5, d * 2.8),
+        a: Math.min(0.85, d * 0.65),
+      };
     };
 
     const LINK_D = 0.38;
     const LINK_D2 = LINK_D * LINK_D;
     let raf;
+    let isRunning = false;
 
     const draw = () => {
+      isRunning = true;
       cmx += (tmx - cmx) * 0.04;
       cmy += (tmy - cmy) * 0.04;
       ctx.clearRect(0, 0, W, H);
@@ -73,8 +93,8 @@
           const dx = pts[i].x - pts[j].x;
           const dy = pts[i].y - pts[j].y;
           const dz = pts[i].z - pts[j].z;
-          if (dx*dx + dy*dy + dz*dz < LINK_D2) {
-            const frac = 1 - Math.sqrt(dx*dx+dy*dy+dz*dz) / LINK_D;
+          if (dx * dx + dy * dy + dz * dz < LINK_D2) {
+            const frac = 1 - Math.sqrt(dx * dx + dy * dy + dz * dz) / LINK_D;
             ctx.strokeStyle = `rgba(15,15,15,${frac * 0.13})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
@@ -88,15 +108,35 @@
       for (const p of proj) {
         ctx.fillStyle = `rgba(20,20,20,${p.a * 0.68})`;
         ctx.beginPath();
-        ctx.arc(p.sx, p.sy, p.r, 0, Math.PI*2);
+        ctx.arc(p.sx, p.sy, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
 
       raf = requestAnimationFrame(draw);
     };
+
     draw();
-    document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else draw(); });
-  }
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf);
+        isRunning = false;
+      } else if (!isRunning) {
+        draw();
+      }
+    });
+  };
+
+  const heroEl = document.querySelector('.hero');
+  setupConstellationCanvas(heroEl, 'hero-canvas', 85);
+
+  const experienceEl = document.querySelector('.experience');
+  setupConstellationCanvas(experienceEl, 'experience-canvas', 68);
+
+  const researchBlogEl = document.querySelector('.research-blog');
+  setupConstellationCanvas(researchBlogEl, 'research-blog-canvas', 62);
+
+  const projectDetailEl = document.querySelector('.project-detail');
+  setupConstellationCanvas(projectDetailEl, 'project-detail-canvas', 70);
 
   // ─── 2. FLOATING GEO SHAPES (hero background) ─────────────────────────────
   const heroForShapes = document.querySelector('.hero');

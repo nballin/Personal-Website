@@ -1064,8 +1064,12 @@ body {
    3-D ANIMATION ADDITIONS
    ═══════════════════════════════════════════════════════════════ */
 
-/* Hero canvas sits behind everything */
-#hero-canvas {
+/* Shared background effect canvas */
+.bg-fx-canvas,
+#hero-canvas,
+#experience-canvas,
+#research-blog-canvas,
+#project-detail-canvas {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1078,6 +1082,21 @@ body {
 .hero > .hero-content {
     position: relative;
     z-index: 1;
+}
+
+.project-detail {
+    position: relative;
+    overflow: hidden;
+}
+
+.experience {
+    position: relative;
+    overflow: hidden;
+}
+
+.research-blog {
+    position: relative;
+    overflow: hidden;
 }
 
 /* ─── Card shine overlay ─── */
