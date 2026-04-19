@@ -186,8 +186,6 @@
 
   // ─── 4. 3-D CARD TILT + SPECULAR HIGHLIGHT ────────────────────────────────
   if (!isTouch) {
-    document.documentElement.classList.add('js-tilt');
-
     const tiltEl = (el, maxDeg = 12) => {
       el.style.transformStyle = 'preserve-3d';
       el.style.willChange = 'transform';
@@ -214,9 +212,7 @@
       });
     };
 
-    document.querySelectorAll('.project-card-link').forEach(w => tiltEl(w, 10));
     document.querySelectorAll('.contact-link').forEach(l => tiltEl(l, 13));
-    document.querySelectorAll('.experience-item').forEach(i => tiltEl(i, 4));
   }
 
   // ─── 5. PROFILE PHOTO — 3-D PARALLAX TILT ─────────────────────────────────
@@ -260,25 +256,31 @@
     });
   });
 
-  // ─── 8. EXPERIENCE ITEMS — 3-D STAGGERED ENTRANCE ─────────────────────────
-  document.querySelectorAll('.experience-item').forEach((item, i) => {
-    // Skip if tilt already applied (avoids double-transform)
-    if (!isTouch) return; // desktop: tilt handles the effect
-    const fromLeft = i % 2 === 0;
-    item.style.opacity = '0';
-    item.style.transform = `perspective(700px) rotateY(${fromLeft ? -18 : 18}deg) translateX(${fromLeft ? -40 : 40}px)`;
-    item.style.transition = 'none';
-    new IntersectionObserver((entries, obs) => {
-      if (entries[0].isIntersecting) {
-        setTimeout(() => {
-          item.style.transition = 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.23,1,0.32,1)';
-          item.style.opacity    = '1';
-          item.style.transform  = 'perspective(700px) rotateY(0) translateX(0)';
-        }, i * 90);
-        obs.disconnect();
-      }
-    }, { threshold: 0.12 }).observe(item);
-  });
+  // ─── 8. EXPERIENCE ITEMS — SIMPLE SCROLL REVEAL (DOWN + UP) ──────────────
+  const experienceItems = document.querySelectorAll('.experience-item');
+  if (experienceItems.length) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      experienceItems.forEach(item => item.classList.add('is-visible'));
+    } else {
+      experienceItems.forEach((item, i) => {
+        item.classList.add('scroll-reveal');
+        item.style.setProperty('--exp-delay', `${i * 80}ms`);
+      });
+
+      const experienceObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          } else {
+            entry.target.classList.remove('is-visible');
+          }
+        });
+      }, { threshold: 0.18 });
+
+      experienceItems.forEach(item => experienceObserver.observe(item));
+    }
+  }
 
   // ─── 9. ABOUT SECTION — SCROLL-DRIVEN LEFT PUSH + STRING DROP ───────────
   const aboutSecEl = document.querySelector('#about');
@@ -329,6 +331,24 @@
     }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
 
     aboutPhotoCards.forEach(card => cardObserver.observe(card));
+  }
+
+  // ─── 11. QUICKQA SECTION — TITLE SCALE + CARD SHIFT + NOTES REVEAL ────────
+  const quickQaSection = document.querySelector('#quickqa');
+  if (quickQaSection) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      quickQaSection.classList.add('quickqa-active');
+    } else {
+      const quickQaObserver = new IntersectionObserver(entries => {
+        const entry = entries[0];
+        if (!entry) return;
+        if (entry.isIntersecting) quickQaSection.classList.add('quickqa-active');
+        else quickQaSection.classList.remove('quickqa-active');
+      }, { threshold: 0.58 });
+
+      quickQaObserver.observe(quickQaSection);
+    }
   }
 
 })();
