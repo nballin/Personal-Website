@@ -192,6 +192,16 @@ body {
     flex-wrap: wrap;
 }
 
+/* Keep hero CTA buttons visually static on hover. */
+.hero-buttons .btn {
+    transition: none;
+}
+
+.hero-buttons .btn:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 .btn {
     padding: 12px 30px;
     border-radius: 50px;
