@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OnlyUs - Cross-platform app for long-distance connection">
+    <title>OnlyUs - Nithin Balamurugan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .project-detail {
+            padding: 120px 20px 60px;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+        }
+        .project-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        .back-link:hover {
+            color: var(--secondary-color);
+            transform: translateX(-5px);
+        }
+        .project-detail-header {
+            margin-bottom: 3rem;
+        }
+        .project-detail-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .project-detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .project-detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .project-detail-tags span {
+            padding: 8px 20px;
+            background-color: var(--bg-light);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        .project-detail-content {
+            line-height: 1.8;
+        }
+        .project-detail-content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+        .project-detail-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .project-detail-content p {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+        .project-detail-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .project-detail-content li {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        .project-links-detail {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        .project-link-detail {
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        .project-link-detail:hover {
+            background-color: var(--bg-grey);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .project-link-detail.secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .project-link-detail.secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        @media (max-width: 600px) {
+            .project-detail-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">Nithin Balamurugan</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="research-blog.html" class="nav-link">Research Blog</a></li>
+                <li><a href="ResumeApril.pdf" class="nav-link" download="ResumeApril.pdf">Resume</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="project-detail">
+        <div class="project-detail-container">
+            <a href="index.html#projects" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Projects
+            </a>
+
+            <div class="project-detail-header">
+                <h1 class="project-detail-title">OnlyUs</h1>
+                <div class="project-detail-meta">
+                    <div class="project-detail-tags">
+                        <span>React Native</span>
+                        <span>Expo</span>
+                        <span>TypeScript</span>
+                        <span>Supabase</span>
+                        <span>Expo Router</span>
+                        <span>Nativewind</span>
+                        <span>Reanimated</span>
+                        <span>AsyncStorage</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-detail-content">
+                <p>
+                    OnlyUs is a cross-platform relationship app focused on bridging long-distance connection through shared memories,
+                    private letters, and daily journaling. Built as SN_Blog with Expo and React Native, it ships across iOS, Android,
+                    and web from a single TypeScript codebase.
+                </p>
+
+                <h2>Overview</h2>
+                <p>
+                    The product was designed to help couples stay emotionally connected over distance through lightweight, meaningful
+                    interactions. The experience combines social posting, private communication, and calendar-based reflection while
+                    maintaining fast navigation and smooth mobile-first UX across platforms.
+                </p>
+
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Cross-Platform App:</strong> Expo + React Native architecture with Expo Router for iOS, Android, and web navigation.</li>
+                    <li><strong>Supabase Backend:</strong> Postgres, authentication, storage, and real-time events powering core product flows.</li>
+                    <li><strong>Media Capture Flow:</strong> Camera integration and image picker support for visual memory sharing.</li>
+                    <li><strong>Push Notifications:</strong> Timely updates for posts, letters, and journaling reminders.</li>
+                    <li><strong>Offline Experience:</strong> AsyncStorage-based local persistence to keep key data available without connectivity.</li>
+                    <li><strong>Modern UI Motion:</strong> Nativewind styling with Reanimated interactions for polished transitions.</li>
+                </ul>
+
+                <h2>Technology Stack</h2>
+                <h3>Frontend</h3>
+                <ul>
+                    <li><strong>React Native + Expo</strong> for cross-platform app delivery</li>
+                    <li><strong>TypeScript</strong> for maintainable typed components and services</li>
+                    <li><strong>Expo Router</strong> for structured multi-platform navigation</li>
+                    <li><strong>Nativewind + Reanimated</strong> for consistent styling and motion</li>
+                </ul>
+
+                <h3>Backend and Data</h3>
+                <ul>
+                    <li><strong>Supabase Postgres</strong> for structured relational data</li>
+                    <li><strong>Supabase Auth</strong> for secure user account management</li>
+                    <li><strong>Supabase Storage + Realtime</strong> for media and live updates</li>
+                    <li><strong>AsyncStorage</strong> for offline local data persistence</li>
+                </ul>
+
+                <h2>Implementation Highlights</h2>
+                <p>
+                    The app architecture balances real-time engagement with reliability under unstable connectivity. By combining
+                    Supabase real-time channels for live updates and AsyncStorage for local caching, the product maintains responsiveness
+                    while preserving user actions across sessions.
+                </p>
+                <p>
+                    Expo APIs were used to support media capture and notifications, while Nativewind and Reanimated were layered to
+                    deliver a modern mobile interaction model that stays performant across devices.
+                </p>
+
+                <div class="project-links-detail">
+                    <a href="#" class="project-link-detail" onclick="alert('OnlyUs is currently in active development. Public demo coming soon.'); return false;">View App</a>
+                    <a href="#" class="project-link-detail secondary" onclick="alert('Repository visibility will be updated when the project is ready for release.'); return false;">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Nithin Balamurugan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>
