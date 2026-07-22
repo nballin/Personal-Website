@@ -237,17 +237,7 @@
   }
 
   // ─── 6. MAGNETIC BUTTONS ──────────────────────────────────────────────────
-  if (!isTouch) {
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const r = btn.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width  / 2) * 0.28;
-        const y = (e.clientY - r.top  - r.height / 2) * 0.28;
-        btn.style.transform = `translate(${x}px, ${y}px)`;
-      });
-      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
-    });
-  }
+  // Removed: buttons no longer move with cursor.
 
   // ─── 7. SKILL TAG STAGGERED WAVE ──────────────────────────────────────────
   document.querySelectorAll('.skills-grid').forEach(grid => {
