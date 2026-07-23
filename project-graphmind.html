@@ -181,7 +181,7 @@
 
             <div class="project-detail-content">
                 <p>
-                    GraphMind is a production-style knowledge graph system that converts unstructured content such as documents,
+                    GraphMind is a full-stack knowledge graph project that converts unstructured content such as documents,
                     notes, articles, and URLs into connected, queryable intelligence. Instead of only keyword matching, it extracts
                     entities and relationships so users can explore connections like who appears across documents and which organizations
                     they are linked to.
@@ -194,13 +194,58 @@
                     due diligence, and competitive intelligence faster and more reliable.
                 </p>
 
+                <h2>Current Status</h2>
+                <p>
+                    GraphMind was originally built as a VM-hosted Docker Compose backend (FastAPI, Celery workers, RabbitMQ, Redis,
+                    Neo4j) with a Next.js frontend. While Oracle, AWS, and GCP all have free tiers, each still requires a card on file
+                    at signup for abuse prevention. Since I wanted a path that avoids entering payment details entirely while still
+                    showcasing the product, I rebuilt the deployment shape into a no-card demo architecture.
+                </p>
+
                 <h2>System Architecture</h2>
+                <h3>Original Build (VM + Docker Compose)</h3>
                 <ul>
-                    <li><strong>Frontend:</strong> Next.js + TypeScript interface for document ingestion, graph exploration, and semantic query workflows.</li>
-                    <li><strong>APIs:</strong> Node.js gateway and Python/FastAPI services for parsing, enrichment, and graph query orchestration.</li>
-                    <li><strong>Background Jobs:</strong> Celery workers process long-running extraction pipelines using RabbitMQ as the broker and Redis for caching and task state.</li>
-                    <li><strong>LLM Layer:</strong> OpenAI-powered prompts identify entities, normalize metadata, and infer relationship candidates from raw text.</li>
-                    <li><strong>Cloud Deployment:</strong> Deployed to cloud infrastructure with autoscaling workers and managed observability for production reliability.</li>
+                    <li><strong>Frontend:</strong> Next.js + TypeScript web app for ingesting content and exploring graph results.</li>
+                    <li><strong>API Layer:</strong> FastAPI service for ingest endpoints, graph reads, and job status responses.</li>
+                    <li><strong>Async Processing:</strong> Celery workers run long extraction jobs off-request.</li>
+                    <li><strong>Queue + State:</strong> RabbitMQ handled task dispatch and Redis stored task/job status.</li>
+                    <li><strong>Graph Storage:</strong> Neo4j persisted entities and relationships for traversal queries.</li>
+                    <li><strong>Infra:</strong> Single cloud VM running Docker Compose services for API, workers, queue, cache, and graph DB.</li>
+                </ul>
+
+                <h3>No-Card Demo Build (Current Showcase)</h3>
+                <ul>
+                    <li><strong>Frontend Hosting:</strong> Vercel hosts the Next.js app with no additional account setup required for me.</li>
+                    <li><strong>Graph Database:</strong> Neo4j AuraDB Free provides managed graph storage without requiring a card.</li>
+                    <li><strong>Cache/State:</strong> Upstash Redis Free stores short-lived state for async demo flows without card entry.</li>
+                    <li><strong>Background Flow:</strong> Workflow-style orchestration replaces always-on RabbitMQ/Celery daemons for demo execution.</li>
+                    <li><strong>LLM Extraction:</strong> OpenAI still performs entity/relationship extraction from chunked unstructured input.</li>
+                    <li><strong>Goal:</strong> Preserve the product narrative and technical depth while avoiding paid infrastructure wiring.</li>
+                </ul>
+
+                <h2>Technology and Service Breakdown</h2>
+                <ul>
+                    <li><strong>Next.js:</strong> Main web framework used to build the GraphMind UI and page routing.</li>
+                    <li><strong>TypeScript:</strong> Added static typing for safer API contracts and more maintainable frontend logic.</li>
+                    <li><strong>React:</strong> Component model for ingestion forms, status views, and graph exploration screens.</li>
+                    <li><strong>react-force-graph-2d:</strong> Renders an interactive force-directed knowledge graph users can explore visually.</li>
+                    <li><strong>Tailwind CSS:</strong> Utility-first styling to ship consistent UI quickly.</li>
+                    <li><strong>FastAPI:</strong> Python API layer for ingest requests, status polling, and graph query endpoints.</li>
+                    <li><strong>Uvicorn:</strong> ASGI runtime used to serve FastAPI endpoints in development and deployment.</li>
+                    <li><strong>Python:</strong> Core service language for extraction pipelines and backend orchestration code.</li>
+                    <li><strong>OpenAI (function calling):</strong> Converts raw text chunks into structured entities and relationship triples.</li>
+                    <li><strong>Neo4j:</strong> Primary graph database for storing and querying linked entities.</li>
+                    <li><strong>APOC:</strong> Neo4j procedures used to simplify graph operations and relationship handling.</li>
+                    <li><strong>Celery (original architecture):</strong> Worker framework for async document-processing tasks.</li>
+                    <li><strong>RabbitMQ (original architecture):</strong> Message broker that queued Celery jobs.</li>
+                    <li><strong>Redis (original architecture):</strong> Result backend and job-state cache for worker progress.</li>
+                    <li><strong>Docker + Docker Compose (original architecture):</strong> Ran API, workers, queue, cache, and graph DB as one stack.</li>
+                    <li><strong>GCP / AWS / Oracle VM (original deployment target):</strong> Host for long-running worker infrastructure, but still card-gated at signup.</li>
+                    <li><strong>Vercel (current demo):</strong> Hosts the stateless frontend and demo-facing app routes.</li>
+                    <li><strong>Neo4j AuraDB Free (current demo):</strong> Managed graph database with no card requirement.</li>
+                    <li><strong>Upstash Redis Free (current demo):</strong> Managed Redis for lightweight state without card entry.</li>
+                    <li><strong>Workflow-style serverless orchestration (current demo):</strong> Replaces always-on queue workers for no-card demo execution.</li>
+                    <li><strong>GitHub:</strong> Source control, collaboration, and project documentation hosting.</li>
                 </ul>
 
                 <h2>Why Graph over Basic RAG/Search</h2>
@@ -213,13 +258,14 @@
                 <h2>Interview-Ready Summary</h2>
                 <p>
                     I built GraphMind to solve the scaling problem of manual research across unstructured documents. The platform uses
-                    Next.js + TypeScript with Node/Python APIs, Celery/RabbitMQ/Redis background processing, and OpenAI-based extraction,
-                    then deploys to cloud infrastructure so users can query relationships directly rather than re-reading source material.
+                    Next.js + TypeScript with Python APIs, OpenAI-based extraction, and a graph data model to query relationships directly.
+                    The original architecture used Celery/RabbitMQ/Redis on a VM, then I reworked it into a no-card demo deployment using
+                    Vercel + AuraDB + Upstash so I could showcase the same core product flow without paid infra wiring.
                 </p>
 
                 <div class="project-links-detail">
                     <a href="#" class="project-link-detail" onclick="alert('GraphMind demo is being prepared. Public walkthrough coming soon.'); return false;">View Demo</a>
-                    <a href="#" class="project-link-detail secondary" onclick="alert('Repository and architecture docs will be published soon.'); return false;">Architecture Notes</a>
+                    <a href="https://github.com/nballin/GraphMind.git" target="_blank" rel="noopener noreferrer" class="project-link-detail secondary">GitHub Repository</a>
                 </div>
             </div>
         </div>
