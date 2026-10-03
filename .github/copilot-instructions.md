@@ -9,8 +9,8 @@ This is a modern personal website built with Next.js, React, TypeScript, and Tai
 - `/styles` - Global styles and Tailwind configuration
 
 ## Tech Stack
-- Next.js 14+ (App Router)
-- React 18+
+- Next.js 16 (App Router)
+- React 19
 - TypeScript
 - Tailwind CSS
 - Responsive design with mobile-first approach
