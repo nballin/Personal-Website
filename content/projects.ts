@@ -140,6 +140,57 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: 'quickqa',
+    title: 'QuickQA',
+    tagline: 'RAG QA pipeline with an experimental Tiny Recursive Model encoder path.',
+    intro:
+      'QuickQA is a retrieval-augmented question-answering pipeline: it ingests a local document corpus, indexes it for hybrid dense + keyword search, and answers questions with an extractive reader. Alongside the stable MiniLM baseline, it wires in an experimental Tiny Recursive Model (TRM) encoder, researching whether TRM-based representations can reduce dependence on standard tokenization and improve efficiency.',
+    categories: ['ai', 'research', 'data'],
+    tags: ['Python', 'RAG', 'FAISS', 'BM25', 'RoBERTa', 'TRM', 'PyTorch', 'SQuAD'],
+    accent: ['#0891b2', '#312e81'],
+    links: [{ label: 'GitHub', href: 'https://github.com/nballin/Quick-QA' }],
+    sections: [
+      {
+        heading: 'Pipeline overview',
+        blocks: [
+          h3('Ingest & index'),
+          list(
+            'Loads documents from a local corpus (.txt, .pdf, .docx), falling back to SQuAD validation passages when empty.',
+            'Splits text into sentence-aware chunks (300 words, 50-word overlap).',
+            'Encodes chunks into dense vectors and builds a FAISS inner-product index plus a BM25 keyword index.',
+            'Persists a JSONL passage store alongside both indexes.',
+          ),
+          h3('Query & answer'),
+          list(
+            'Encodes the question to a dense vector and retrieves candidates from FAISS and BM25 in parallel.',
+            'Fuses the two candidate sets with weighted Reciprocal Rank Fusion, then re-ranks by cosine similarity.',
+            'Extracts the final answer span with a RoBERTa (deepset/roberta-base-squad2) reader, returning the answer, score, and source chunk.',
+            'A SQuAD evaluation command reports Exact Match, F1, and Recall@k.',
+          ),
+        ],
+      },
+      {
+        heading: 'TRM encoder path (experimental)',
+        blocks: [
+          p('The pipeline supports swappable encoder backends behind a config flag. MiniLM is the default and the only backend that is fully stable end to end. The TRM backend is wired into the same ingest/query interface: text is converted from UTF-8 bytes into a fixed grid representation, bridged into ARC vocabulary IDs, and run through a Tiny Recursive Model whose hidden states are pooled, L2-normalized, and used for retrieval just like the MiniLM embeddings.'),
+          p('Query conditioning on the TRM path currently uses a CRC32 hash-bucket placeholder rather than learned semantics, so answer quality still trails the MiniLM baseline — the point right now is validating that TRM representations can sit in the same retrieval pipeline at all.'),
+        ],
+      },
+      {
+        heading: 'Status & roadmap',
+        blocks: [
+          p('MiniLM remains the best end-to-end quality today. The TRM path needs a valid checkpoint and matching dataset metadata, and its byte-to-vocabulary bridge is still deterministic rather than learned.'),
+          list(
+            'Replace CRC32 query conditioning with learned, query-aware conditioning.',
+            'Train the byte-to-vocabulary bridge with supervised/contrastive objectives instead of a fixed mapping.',
+            'Fine-tune retrieval quality directly on QA triplets.',
+            'Benchmark TRM against MiniLM on quality and runtime, then package a reproducible demo.',
+          ),
+        ],
+      },
+    ],
+  },
+  {
     slug: 'storyos',
     title: 'StoryOS',
     tagline: 'Deterministic AI video via 3D point-cloud scene proxies.',
