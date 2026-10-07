@@ -1,4 +1,4 @@
-import { h3, list, p, phoneImage, phoneRow, phoneVideo, video } from './blocks';
+import { h3, list, p, video } from './blocks';
 import type { Project, ProjectCategory } from './types';
 
 const m = (file: string) => `/media/projects/${file}`;
@@ -424,17 +424,6 @@ export const projects: Project[] = [
         heading: 'Implementation highlights',
         blocks: [
           p('The architecture balances real-time engagement with reliability under unstable connectivity. Supabase realtime channels provide live updates while AsyncStorage caches locally, keeping the app responsive and preserving user actions across sessions.'),
-        ],
-      },
-      {
-        heading: 'Feature walkthrough',
-        blocks: [
-          p('Feed posts carry an author, caption, and reactions; Calendar places every post on its date with day-by-day swiping; Mailbox holds longer private letters separate from the quick photo feed.'),
-          phoneRow(
-            phoneVideo(m('onlyus-feed.mp4'), 'Feed', m('onlyus-feed-poster.jpg')),
-            phoneVideo(m('onlyus-calendar.mp4'), 'Calendar', m('onlyus-calendar-poster.jpg')),
-            phoneImage(m('onlyus-mailbox.png'), 'Mailbox'),
-          ),
         ],
       },
     ],
