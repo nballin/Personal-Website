@@ -1,9 +1,15 @@
+export type PhoneItem =
+  | { kind: 'video'; src: string; poster?: string; label: string }
+  | { kind: 'image'; src: string; alt: string; label: string };
+
 export type Block =
   | { type: 'p'; text: string }
   | { type: 'h3'; text: string }
   | { type: 'list'; items: string[] }
   | { type: 'video'; src: string; poster?: string }
-  | { type: 'images'; images: { src: string; alt: string }[] };
+  | { type: 'images'; images: { src: string; alt: string }[] }
+  /** Small phone-sized video/image previews side by side — for mobile app screens, where a full-width video/image block is too tall. */
+  | { type: 'phoneRow'; items: PhoneItem[] };
 
 export type Section = { heading: string; blocks: Block[] };
 

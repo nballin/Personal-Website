@@ -58,6 +58,25 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
                 ))}
               </div>
             );
+          case 'phoneRow':
+            return (
+              <div key={i} className="flex flex-wrap justify-center gap-4 sm:justify-start">
+                {block.items.map((item, j) => (
+                  <figure key={j} className="w-36 shrink-0 sm:w-44">
+                    {item.kind === 'video' ? (
+                      <video className="w-full rounded-2xl border border-line bg-black" autoPlay muted loop playsInline preload="auto" poster={item.poster}>
+                        <source src={item.src} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <a href={item.src} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-2xl border border-line bg-white/5">
+                        <Image src={item.src} alt={item.alt} width={440} height={960} sizes="176px" className="h-auto w-full" />
+                      </a>
+                    )}
+                    <figcaption className="mt-2 text-center text-xs text-ink/60">{item.label}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            );
         }
       })}
     </div>
